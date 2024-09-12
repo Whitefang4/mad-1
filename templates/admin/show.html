@@ -1,0 +1,104 @@
+
+{% extends 'layout.html' %}
+
+{% block tilte %}
+    Campaigns of Sponsor {{sponsor.company_name}}
+{% endblock %}
+
+{% block content %}
+<div class="campaign_header">
+<h1 class="display-1">
+    Sponsor {{sponsor.company_name}}</h1>
+</div>
+<table class="table table-striped campaign-table">
+    <thead>
+        <tr>
+            <th>Campaign Name</th>
+            <th style="padding-left: 60px;">Description</th>
+            <th style="padding-left: 60px;">Start Date</th>
+            <th style="padding-left: 60px;">End Date</th>
+            <th style="padding-left: 60px;">Budget</th>
+            <th style="padding-left: 60px;">Status</th>
+            <th style="padding-left: 60px;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for campaign in campaigns %}
+        <tr>
+            <td>{{ campaign.name }}</td>
+            <td style="padding-left: 60px;">{{ campaign.description }}</td>
+            <td style="padding-left: 60px;">{{ campaign.start_date.strftime('%Y-%m-%d') }}</td>
+            <td style="padding-left: 60px;">{{ campaign.end_date.strftime('%Y-%m-%d') }}</td>
+            <td style="padding-left: 60px;">{{ campaign.budget }}</td>
+            <td style="padding-left: 60px;">{{ campaign.visibility}}
+                
+            </td>
+            <td style="padding-left: 70px;">
+                {% if campaign.is_flagged %}
+                <a href="{{ url_for('admin_flag_campaign',  campaign_id = campaign.id) }}" class="btn btn-warning">
+                    <i class="fa-solid fa-flag"></i>
+                    Unflag
+                </a>
+                <a href="{{ url_for('delete_campaign', sponsor_id=sponsor.id, campaign_id = campaign.id) }}" class="btn btn-danger">
+                    <i class="fas fa-trash    "></i>
+                    Delete
+                </a>
+                <a href="{{ url_for('admin_view', sponsor_id=sponsor.id, campaign_id = campaign.id)}}" class="btn btn-sm btn-info">
+                    <i class="fa-sharp fa-solid fa-bell"></i>
+                    View Requests
+                </a>
+                    
+                {% else %}
+                <a href="{{ url_for('admin_flag_campaign',  campaign_id = campaign.id) }}" class="btn btn-warning">
+                    <i class="fa-solid fa-flag"></i>
+                    Flag
+                </a>
+                <a href="{{ url_for('delete_campaign', sponsor_id=sponsor.id, campaign_id = campaign.id) }}" class="btn btn-danger">
+                    <i class="fas fa-trash    "></i>
+                    Delete
+                </a>
+                <a href="{{ url_for('admin_view', sponsor_id=sponsor.id, campaign_id = campaign.id)}}" class="btn btn-sm btn-info">
+                    <i class="fa-sharp fa-solid fa-bell"></i>
+                    View Requests
+                </a>
+                {% endif %}
+               
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    
+{% endblock %}
+
+
+{% block style %}    
+    <style>
+        .campaign_header {
+            display: flex;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 1rem; 
+            border-bottom:  3px solid #b54242;
+        }
+
+        .display-1{
+            font-size: 45px;
+        }
+        
+        .campaign-table {
+            margin-top: 1rem;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 24px;
+            border-bottom:  3px solid #b54242;
+            
+        }
+         
+        .badge {
+            padding: 1rem;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+            font-size: 28px;
+        }
+    </style>
+{% endblock %}

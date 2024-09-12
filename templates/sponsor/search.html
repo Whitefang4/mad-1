@@ -1,0 +1,196 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Search Influencers
+{% endblock %}
+
+
+
+{% block content %}
+<div class="container">
+  <div class="search_container">
+    <h3 class="display-3">
+      Search Influencers
+    </h3>
+  </div>
+
+  <div class="form">
+  <form action="" class="form" method="post">
+    <div class="form-group">
+      <label for="niche" class="form-label">Niche:</label>
+      <select name="niche" id="niche" class="form-control">
+        <option value="">All Niches</option>
+        {% for niche in niches %}
+          <option value="{{ niche }}">{{ niche }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="keywords" class="form-label">Keywords:</label>
+      <input type="text" name="keywords" id="keywords" class="form-control">
+    </div>
+    <div class="btn">
+    <button type="submit" class="btn btn-primary">Search</button>
+  </div>
+  </form>
+</div>
+
+  {% if influencers %}
+  <div class="influencer_list">
+    <h2 style="padding-left: 60px;">Results:</h2>
+  </div>
+  <div class="content">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for influencer in influencers %}
+      <div class="col">
+        <div class="card shadow-sm hvr-grow">
+          <div class="card-body">
+            <h5 class="card-title">{{ influencer.name }}</h5>
+            <p class="card-text">{{ influencer.niche }}</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Bio: {{ influencer.bio }}</li>
+              <li class="list-group-item">Followers: {{ influencer.followers }}</li>
+              <li class="list-group-item">Activities: {{ influencer.activities }}</li>
+              <li class="list-group-item">Reach: {{ influencer.reach }}</li>
+            </ul>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <a href="{{ url_for('view_influencer_profile', influencer_id=influencer.id) }}" class="btn btn-info">
+                <i class="fa-solid fa-address-card"></i>
+                View
+            </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block style %}
+  <style>
+  
+
+  .search_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 3px solid #b54242;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+  }
+  .form-control{
+    font-size: 20px;
+  }
+
+  .form-label {
+    font-weight: bold;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 22px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin-right: auto;
+    margin-left: auto;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+  .influencer_list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+  }
+  .card {
+    background-color: #042a5e;
+      
+    }
+  
+    .card-title {
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      font-size: 24px;
+      color: #e9d607eb;
+      background-color: #042a5e;   
+      padding-bottom: 1rem;
+      box-shadow: 0px 5px 10px rgb(0, 0, 0);
+      border-radius: 10px;
+
+    }
+
+
+
+  .campaign_header {
+    display: flex;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 3px solid #b54242;  
+  }
+  .card-text {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+    padding-bottom: 1rem;
+    line-height: 1.5; 
+    color: #e9d607eb;
+    background-color: #042a5e; 
+    margin-top: 10px; 
+    margin-left: 18px;
+    box-shadow: 0px 5px 10px rgb(0, 0, 0) ;
+    border-radius: 10px; 
+  }
+
+  .list-group-item{
+    background-color: #042a5e; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+    color: #e9d607eb;
+  }
+  .btn-group{
+    padding: 1rem;
+    justify-content: space-evenly;
+    
+  }
+  .btn-info{
+    background-color: #3498db; 
+    border-color: #3498db; 
+    padding: 0.75rem;
+    font-size: 20px;
+    border-radius: 1rem;
+  }
+  .btn-info:hover {
+    background-color: #2980b9; 
+    border-color: #2980b9;
+  }
+  .btn-primary {
+    background-color: #db6634; 
+    border-color: #db6634; 
+    padding: 0.75rem;
+    font-size: 20px;
+    border-radius: 1rem;
+  }
+  .btn-primary:hover {
+    background-color: #db6634ec; 
+    border-color: #db6634ec; 
+  }
+</style>
+
+
+{% endblock %}

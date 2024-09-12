@@ -1,0 +1,185 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Influencer Home
+{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="campaign_header">
+    <h3 class="display-3">Ongoing Campaigns</h3>
+  </div>
+  <div class="search">
+    {% include 'searchbar.html' with context %}
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for campaign in campaigns %}
+    {% if campaign.visibility == "Public" %}
+      <div class="col">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            {% if campaign.is_flagged %}
+              <h5 class="card-title"> {{ campaign.name }}
+                <i class="fa-solid fa-flag fa-lg" style="color: #e10909;"></i>
+              </h5>
+              <p class="card-text">   {{ campaign.description  }}</p> 
+              <p class="card-text"> Niche: {{ campaign.niche  }}</p> 
+              <ul class="list-group list-group-flush">
+                
+                <li class="list-group-item">Budget: {{ campaign.budget }}</li>
+                <li class="list-group-item">Start Date: {{ campaign.start_date.strftime('%Y-%m-%d') }}</li>
+                <li class="list-group-item">End Date: {{ campaign.end_date.strftime('%Y-%m-%d') }}</li>
+                
+                <li class="list-group-item">
+                  Visibility: 
+                  {{ campaign.visibility }}
+                  <i class="fa-sharp fa-solid fa-eye" style="color: #12dd03;"></i>
+                </li>
+              </ul>
+              <div class="btn-1">
+              <a href="{{ url_for('influencer_ad_request', campaign_id=campaign.id) }}" class="btn btn-info disabled" >
+                <i class="fa-solid fa-ban" style="color: #f20707;"></i>
+                Request</a>
+              <span class="note">You cannot send request!!</span>
+              </div>
+              
+            {% else %}
+              <h5 class="card-title"> {{ campaign.name }}</h5>
+              <p class="card-text">   {{ campaign.description  }}</p> 
+              <p class="card-text"> Niche: {{ campaign.niche  }}</p> 
+              <ul class="list-group list-group-flush">
+                
+                <li class="list-group-item">Budget: {{ campaign.budget }}</li>
+                <li class="list-group-item">Start Date: {{ campaign.start_date.strftime('%Y-%m-%d') }}</li>
+                <li class="list-group-item">End Date: {{ campaign.end_date.strftime('%Y-%m-%d') }}</li>
+                
+                <li class="list-group-item">
+                  Visibility: 
+                  {{ campaign.visibility }}
+                  <i class="fa-sharp fa-solid fa-eye" style="color: #12dd03;"></i>
+                </li>
+              </ul>
+              <div class="btn-1">
+              <a href="{{ url_for('influencer_ad_request', campaign_id=campaign.id) }}" class="btn btn-info">Request</a>
+              </div>
+              
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block style %}    
+<style>
+    .card {
+      background-color: #042a5e;
+        
+      }
+    
+      .card-title {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size: 24px;
+        color: #e9d607eb;
+        background-color: #042a5e;   
+        padding-bottom: 1rem;
+        box-shadow: 0px 5px 10px rgb(0, 0, 0);
+        border-radius: 10px;
+
+      }
+    
+
+    
+      .campaign_header {
+        display: flex;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        justify-content: space-between; 
+        align-items: center; 
+        padding: 1rem;
+        border-bottom:  3px solid #b54242;
+        margin-bottom: 1rem;
+        
+        
+    }
+  
+  
+  .card-text {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+
+    padding-bottom: 1rem;
+    line-height: 1.5; 
+    color: #e9d607eb;
+    background-color: #042a5e; 
+    margin-top: 10px; 
+    margin-left: 18px;
+    box-shadow: 0px 5px 10px rgb(0, 0, 0) ;
+    border-radius: 10px; 
+  }
+  .list-group-item{
+    color: #e9d607eb;
+    background-color: #042a5e; 
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 18px; 
+  }
+  .btn-info{
+    background-color: #3498db; 
+    border-color: #3498db; 
+    padding: 0.75rem;
+    font-size: 20px;
+    border-radius: 1rem;
+    margin-top: 2rem;
+  }
+  .btn-info:hover {
+    background-color: #2980b9; 
+    border-color: #2980b9;
+  }
+
+  .search{
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  .fa-flag{
+    margin-left: 12rem; 
+  }
+  .note{
+    color: #ff0000;
+    margin-left: 1rem;
+    font-size: 20px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+  
+
+</style>
+{% endblock %}
+
+{% block script %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $("#search-button").click(function() {
+      var searchTerm = $("#search_term").val().toLowerCase();
+      $(".card").hide(); 
+  
+      
+      $(".card").each(function() {
+        var description = $(this).find(".card-text").text().toLowerCase();
+        if (description.indexOf(searchTerm) != -1) {
+          $(this).show(); 
+        }
+      });
+    });
+  });
+  </script>
+  
+
+  
+{% endblock %}

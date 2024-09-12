@@ -1,0 +1,208 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Influencer Profile
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="heading">
+        <h1 class="display-1 text-center">  Hello
+            <span class="text-muted">{{influencer.name}}  </span>
+        </h1>
+        <div class="profile-pic">
+            <img src="https://api.dicebear.com/9.x/avataaars-neutral/svg?seed={{user.username}}"  width=94 alt="">
+        </div>
+    
+    </div>
+    <div class="profile-container">
+        <div class="logout-section">
+            <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Logout</a>
+        </div>
+    </div>
+    
+        <div class="about">
+            <div class ="details">
+                <h1 class="display-4">About</h1>
+                <table>
+                    <tbody>
+                        <tr >
+                            <th> Name:</th>
+                            <td >{{ influencer.name}}</td>
+                        </tr>
+                        <tr>
+                            <th>Platform:</th>
+                            <td>{{ influencer.category}}</td>
+                        </tr>
+                        <tr>
+                            <th>Bio:</th>
+                            <td>{{ influencer.bio}}</td>
+                        </tr>
+                        <tr>
+                            <th>Followers:</th>
+                            <td>{{ influencer.followers}}</td>
+                        </tr>
+                        <tr>
+                            <th>Niche:</th>
+                            <td>{{ influencer.niche}}</td>
+                        </tr>
+                        <tr>
+                            <th>Activities:</th>
+                            <td>{{ influencer.activities}}</td>
+                        </tr>
+                        <tr>
+                            <th>Reach:</th>
+                            <td>{{ influencer.reach}}</td>
+                        </tr>
+    
+                    </tbody>
+    
+                </table>
+    
+                <div class="update">
+                    <a href="{{ url_for('profile_update') }}" class="btn btn-info">Update</a>
+                </div>
+    
+            </div>
+    
+            <div class="chart-container">
+                <canvas id="influencerChart"></canvas>
+            </div>
+    
+        </div>
+</div>
+
+
+
+
+  
+
+
+
+{% endblock %}
+
+{% block style %}
+<style>
+    
+    .h{
+        margin-left: 50px;
+        
+    }
+    .heading {
+        display: flex;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px; 
+        border-bottom: 3px solid #b54242;
+        
+    }
+
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+        border: 3px solid black;
+        border-radius: 40%;
+        overflow: hidden;
+    }
+
+    .text-muted {
+        font-size: 70px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+    }
+    .logout-section {
+        margin-top: 10px;
+        text-align: right;
+        margin-left: 30px;  
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+    }
+    .about {
+        display: flex;
+        justify-content: space-between;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size:3cap;
+        margin-bottom: 2rem;
+        color: black;
+        gap: 3rem;
+        
+        
+    }
+    .details {
+        text-align: center;
+        font-size: 24px;
+        margin-top: 20px;
+        box-shadow: 0px 5px 10px rgb(0, 0, 0) ;
+        border-radius: 10px;
+        background-color: #b54242;
+        padding-left: 2rem; 
+    }
+    
+    th, td {
+        padding: 10px;
+        text-align: left;
+        color: #0a0a0aeb;
+        
+
+    }
+   
+    .btn-info{
+        background-color: #3498db; /* Bright Blue */
+        border-color: #3498db; /* Bright Blue */
+        padding: 0.75rem;
+        font-size: 20px;
+        border-radius: 1rem;
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+      .btn-info:hover {
+        background-color: #2980b9; /* Darker Blue */
+        border-color: #2980b9; /* Darker Blue */
+      }
+
+    .chart-container {
+        width: 800px;
+        height: 400px;
+        margin-top: 40px;
+        margin-right: 30px;
+        box-shadow: 0px 5px 10px rgb(0, 0, 0) ;
+        border-radius: 10px;
+        align-items: center;
+       
+      }
+    
+    
+</style>
+{% endblock %}
+
+{% block script %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+<script>
+    const data = {  labels: {{ labels|safe }},
+            datasets: [{
+              label: 'Requests',
+              data: {{ data|safe }},
+              borderWidth: 1
+            }]
+        };
+    
+        const config ={
+            type: 'line',
+            data,  
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+    
+        };
+    
+    const influencerChart = new Chart(document.getElementById('influencerChart'), 
+    config);
+
+</script>
+{% endblock %}

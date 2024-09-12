@@ -1,0 +1,85 @@
+{% extends 'layout.html' %}
+
+{% block tilte %}
+    Campaign Request
+{% endblock %}
+
+{% block content %}
+<div class="campaign_header">
+<h1 class="display-1">
+    Campaign Request</h1>
+</div>
+<table class="table table-striped campaign-table">
+    <thead>
+        <tr>
+            
+            <th >Campaign Name</th>
+            <th >Influencer Name</th>
+            <th >Requirements</th>
+            <th >Message</th>
+            <th >Payment</th>
+            <th >Status</th>
+        
+        </tr>
+    </thead>
+    <tbody>
+        {% for request in request %}
+        <tr>
+            <td>{{ request.campaign.name }}</td>
+            <td >{{ request.influencer.name}}</td>
+            <td >{{ request.requirements }}</td>  
+            <td >{{ request.messages }}</td>
+            <td >{{ request.payment_amount }}</td>
+            <td >{{ request.status }}</td>   
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+    
+{% endblock %}
+
+
+{% block style %}    
+    <style>
+        .campaign_header {
+            display: flex;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 1rem;
+            
+            
+        }
+
+        .display-1{
+            font-size: 45px;
+        }
+        
+        .campaign-table {
+            margin-top: 0;
+            margin-left: -1;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 24px;
+            
+            justify-content: space-between; 
+            align-items: center; 
+            border-top:  3px solid #b54242;
+            border-bottom:  3px solid #b54242;
+            
+        }
+        
+        .badge {
+            padding: 1rem;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+            font-size: 28px;
+        }
+
+        .container{
+            align-items: center;
+            justify-content: space-between;
+        }
+    </style>
+{% endblock %}

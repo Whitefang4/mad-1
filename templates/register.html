@@ -1,0 +1,132 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Register Page    
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="https://i.pinimg.com/originals/f9/1b/fc/f91bfc1a9425e643a9f369edfe578f18.jpg" alt="" class="img-fluid">
+        </div>
+</div>
+    <div class="heading">
+        <h1 class="display-1">Register</h1>
+        <form action="" class="form" method="post">
+            <div class="row g-3 align-items-center">
+                <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" name="username"  required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="confirm_password" class="form-label">Confirm Password</label>
+                    <input type="password" name="confirm_password"  required class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" required class="form-control">
+                </div>
+                <div class ="form-group">
+                    <label for="user_type">User Type:</label>
+                    <select name="user_type" id="user_type" required>
+                        <option value="sponsor">Sponsor</option>
+                        <option value="influencer">Influencer</option>        
+                    </select>
+                </div>
+                <div class="btn">
+                    <input type="submit" value="Register" class="btn btn-primary">   
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+{% block style %}
+<style>
+    /* In your CSS file */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 177vh ;
+    margin: 0;
+    gap: 2rem;
+}
+
+.heading {
+    width: 500px;
+    align-items: center;
+    justify-content: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;  
+    color: #042a5e;
+    
+    margin-bottom: 3.5rem;
+    padding-right: 2rem;
+    padding-left: 2rem; 
+    box-shadow: 10px 10px 10px rgb(16, 14, 2); 
+    border-radius: 10px; 
+    background-color: #e9d607eb;
+}
+.display-1{
+    text-align: center;
+    margin-bottom: 1rem;
+
+
+}
+
+.form-group {
+    font-size: 20px; 
+    margin-bottom: 1rem;
+}
+
+.form-control {
+    font-size: 18px;
+    color: #042a5e;
+}
+
+.btn {
+    align-items: center;
+    text-align: center;
+    margin-left: 3.7rem;
+    margin-bottom: 0.5rem;
+    width: 150px;
+}
+
+.btn-primary {
+  background-color: #3498db; 
+  border-color: #3498db; 
+  padding: 0.75rem;
+  font-size: 20px;
+  border-radius: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: #2980b9; 
+  border-color: #2980b9; 
+}
+
+.container {
+    
+    background-color: #042a5e;
+    max-width: 100%;
+}
+.img-fluid {
+    max-width: 900px;
+    margin-bottom: 4rem;
+    box-shadow: 10px 10px 10px rgb(16, 14, 2); 
+    border-radius: 10px;
+
+}
+</style>
+    
+{% endblock %}

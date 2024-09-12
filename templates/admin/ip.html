@@ -1,0 +1,135 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Influencer Profile
+{% endblock %}
+
+{% block content %}
+<div class="heading">
+    <h1 class="display-1 text-center"> 
+        <span class="text-muted">{{influencer.name}}  </span>
+    </h1>
+    <div class="profile-pic">
+        <img src="https://api.dicebear.com/9.x/avataaars-neutral/svg?seed={{users.username}}"  width=94 alt="">
+    </div>
+
+</div>
+
+<div class="container">
+    <div class="about">
+        <div class ="details">
+            <h1 class="display-4">About</h1>
+            <table>
+                <tbody>
+                    <tr >
+                        <th> Name:</th>
+                        <td >{{ influencer.name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Platform:</th>
+                        <td>{{ influencer.category}}</td>
+                    </tr>
+                    <tr>
+                        <th>Bio:</th>
+                        <td>{{ influencer.bio}}</td>
+                    </tr>
+                    <tr>
+                        <th>Followers:</th>
+                        <td>{{ influencer.followers}}</td>
+                    </tr>
+                    <tr>
+                        <th>Niche:</th>
+                        <td>{{ influencer.niche}}</td>
+                    </tr>
+                    <tr>
+                        <th>Activities:</th>
+                        <td>{{ influencer.activities}}</td>
+                    </tr>
+                    <tr>
+                        <th>Reach:</th>
+                        <td>{{ influencer.reach}}</td>
+                    </tr>
+    
+                </tbody>
+    
+            </table>
+    
+    
+        </div>
+
+    
+    </div>
+    
+    
+</div>
+
+
+
+  
+
+
+
+{% endblock %}
+
+{% block style %}
+<style>
+    
+    .h{
+        margin-left: 50px;
+    }
+    .heading {
+        display: flex;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px; 
+        border-bottom: 3px solid #b54242; /* Add a border to separate sections */
+    }
+
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+        border: 3px solid black;
+        border-radius: 40%;
+        overflow: hidden;
+    }
+
+    .text-muted {
+        font-size: 70px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+    }
+    .about {
+        width: 500px;
+        display: flex;
+        margin-top: 20px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size: 30px;
+        color: black;
+        box-shadow: 0px 5px 10px rgb(0, 0, 0) ;
+        border-radius: 10px;
+        background-color: #b54242; 
+        padding: 2rem;
+        margin-left: 400px;       
+    }
+    .display-4{
+        text-align: center;
+    }
+    .container {
+        align-items: center;
+        
+    }
+    
+    th, td {
+        padding: 10px;
+        text-align: left;
+        color: #0a0a0aeb;
+        
+
+    }
+   
+    
+    
+</style>
+{% endblock %}
+
+

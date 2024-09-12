@@ -1,0 +1,141 @@
+{% extends 'layout.html' %}
+
+{% block tilte %}
+    Notification
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="campaign_header">
+    <h3 class="display-3">
+        Notification</h3>
+    </div>
+    <div class="d">
+        <table class="table table-striped campaign-table">
+            <thead>
+                <tr>
+    
+                    <th >Campaign Name</th>
+    
+                    <th >Requirements</th>
+                    <th >Message</th>
+                    <th >Payment</th>
+                    <th >Status</th>
+                    <th >Action</th>
+                    <th >Completed</th>
+                    
+    
+    
+                </tr>
+            </thead>
+            <tbody>
+                {% for request in requests %}
+                <tr>
+                    <td>{{ request.campaign.name }}</td>
+                    <td >{{ request.requirements }}</td>
+                    <td>{{ request.messages }}</td>
+                    <td >{{ request.payment_amount }}</td>
+                    <td >{{ request.status }}</td>
+                    {% if request.is_private: %}
+                    <td >
+                       {% if request.status == "Pending" %}
+    
+    
+                       <a href="{{url_for('influencer_action', request_id=request.id, action='accept') }}" class="btn btn-success">
+                            <i class="fas fa-check"></i>
+                            Accept
+                        </a>
+                        <a href="{{ url_for('influencer_action', request_id=request.id, action='decline') }}" class="btn btn-danger">
+                            <i class="fas fa-times"></i>
+                            Decline
+                        </a>
+                        {% elif request.status == 'Accepted' %}
+                            <span >{{ request.status }}</span>
+
+    
+                        {% else %}
+                            <span >{{ request.status }}</span>
+    
+                       {% endif %}
+                    </td>
+    
+                    {% elif request.status != "Pending" %}
+                    <td >{{ request.status }}</td>
+    
+                    {% else %}
+                    <td >Wait for sponsor response</td>
+                    {% endif %}
+
+                    <td>
+                        {% if request.status == 'Accepted' and not request.completed %}
+                            <a href="{{ url_for('influencer_action', request_id=request.id, action='completed') }}" class="btn btn-primary">
+                                Mark as Completed
+                            </a>
+                        {% elif request.status == 'Accepted' and request.completed %}
+                            <span >Completed </span>
+
+                        {% elif request.status == 'Declined'%}
+                            <span></span>
+                        {% else %}
+                            <span >Wait for sponsor response </span>
+
+                        {% endif %}
+                    </td>
+            
+                    
+    
+                    
+    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+    
+{% endblock %}
+
+
+{% block style %}    
+    <style>
+        .campaign_header {
+            display: flex;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 1rem;
+            
+            
+        }
+
+        .display-1{
+            font-size: 45px;
+        }
+        
+        .campaign-table {
+            margin-top: 0;
+            margin-left: -1;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 24px;
+            
+            justify-content: space-between; 
+            align-items: center; 
+            border-top:  3px solid #b54242;
+            border-bottom:  3px solid #b54242;
+            
+        }
+        
+        .badge {
+            padding: 1rem;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+            font-size: 28px;
+        }
+
+        .container{
+            align-items: center;
+            justify-content: space-between;
+        }
+    </style>
+{% endblock %}

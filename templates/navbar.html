@@ -1,0 +1,124 @@
+<nav class="navbar navbar-expand-lg bg-custom" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand">
+      <h2 class="display-6">BrandAlly 🍇 </h2>
+    </a> 
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav flex-wrap">  {% if 'user_id' in session and user.user_type=='admin' %}
+          <div class="ad_login">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('admin_dashboard') }}">Dashboard</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('admin_campaign') }}">Campaigns</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('admin_profile') }}">Profile</a>
+            </li>
+          </div>
+          {% elif 'user_id' in session and user.user_type=='sponsor' %}
+          <div class="sp_login">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('sponsor_home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('search') }}"> Search
+                <i class="fa-sharp fa-solid fa-magnifying-glass fa-sm"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('sponsor_profile') }}">Profile</a>
+            </li>
+          </div>
+          
+          {% elif 'user_id' in session and user.user_type=='influencer' %}
+          
+          <div class="in_login">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('influencer_home') }}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('influencer_response') }}">Notification</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('influencer_profile') }}">Profile</a>
+            </li>
+            
+          </div>
+          {% else %}
+          <div class="login">
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('login') }}">
+                Sign_In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ url_for('register') }}">
+               Register</a>
+            </li>
+          </div>
+          {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<style>
+.navbar-brand {  /* Minor correction: class should be .navbar */
+  color: #042a5e;  
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-weight: bold;
+  width: 90px;
+  margin-left: 60px; 
+  
+}
+
+
+.nav-link {
+  color: #042a5e;  
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;  
+  font-size: 1.7rem;
+ 
+  border: #010408;
+
+
+ } 
+.login{
+  margin-left: 64rem;
+  display: flex;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.816);
+}
+
+.in_login{
+  margin-left: 53rem;
+  display: flex;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.816);
+}
+
+.sp_login{
+  margin-left: 56rem;
+  display: flex;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.816);
+
+}
+.ad_login{
+  margin-left: 50rem;
+  display: flex;
+  border-radius: 5px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.816);
+}
+
+.bg-custom {
+  background-color: #e9d607eb;
+  box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.866); 
+}
+</style>
+
+
+

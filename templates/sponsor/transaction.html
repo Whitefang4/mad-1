@@ -1,0 +1,69 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Payment Requests
+{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="display-4">Payment Requests for Campaign: {{ campaign.name }}</h1>
+  </div>
+  <div class="header">
+    {% if ad_requests %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Influencer Name</th>
+            <th>Payment Amount</th>
+            <th>Status</th>
+            <th>Completed</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for request in ad_requests %}
+            <tr>
+              <td>{{ request.influencer.name }}</td>
+              <td>{{ request.payment_amount }}</td>
+              <td>{{ request.status }}</td>
+              <td>{{ request.completed }}</td>
+              <td>
+                {% if request.completed %}
+                <a href="{{ url_for('sponsor_home') }}" class="btn btn-primary">Pay Now</a>
+                {% else %}
+                  {{ request.status }}
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>No pending payment requests found for this campaign.</p>
+    {% endif %}
+  </div>
+{% endblock %}
+
+
+{% block style %}
+    <style>
+      .container { 
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size: 22px;
+        padding: 1rem; 
+        
+    }
+    .header{
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+      font-size: 20px;
+    }
+    .btn {
+            width: 90px;
+          }
+    
+          
+          
+        
+          
+    </style>
+{% endblock %}

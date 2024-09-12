@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Delete Campaign
+{% endblock %}
+
+{% block content %}
+
+<div class="header">
+<h1 class="display-1">
+    Delete User
+</h1>
+</div>
+
+<p class="f-3">Are you sure you want to delete this "{{users.username}}"?</p>
+
+<form action="" method="post" class="form">
+    <button type="submit" class="btn btn-danger">
+        <i class="fas fa-trash    "></i>
+        Delete
+    </button>
+</form>
+
+{% endblock %}
+
+{% block style %}
+
+<style>
+    .header {
+        display: flex; 
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size: 2rem;
+        padding: 1rem; 
+        border-bottom:  3px solid #b54242; 
+    }
+
+        .display-1{
+            font-size: 45px;
+        }
+    
+      .f-3{
+        display: flex;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        padding: 1rem; 
+        font-size: 30px;
+        
+        
+      }
+      .btn {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        margin-top: 0rem;
+        margin-left: 20px;
+        padding: 10px;
+        width: 100px;
+      }
+</style>
+    
+{% endblock %}

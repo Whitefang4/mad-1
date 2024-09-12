@@ -1,0 +1,205 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Admin Dashboard
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid"> 
+    <div class="col">
+        <div class="header">
+            <h1 class="display-4">  Admin Dashboard
+            </h1>
+          </div>
+
+          <div class="chart-container">
+            <canvas id="myChart"></canvas>
+            <canvas id="pieChart"></canvas>
+          </div>
+
+          
+
+          <div class="campaign_header">
+            <h1 class="display-1">
+                Users
+            </h1>
+        </div>
+        
+        <table class="table table-striped campaign-table">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th style="padding-left: 60px;">User Type</th>
+                    <th style="padding-left: 90px;">Email</th>
+                    <th style="padding-left: 50px;">Admin</th>
+                    <th style="padding-left: 60px;">Flagged</th>
+                    <th style="padding-left: 120px;">Actions</th>
+                
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td >{{ user.username }}</td>
+                    <td style="padding-left: 60px;">{{ user.user_type }}</td>
+                    <td style="padding-left: 60px;">{{ user.email }}</td>
+                    <td style="padding-left: 60px;">{{user.admin}}
+                    <td style="padding-left: 60px;">{{user.is_flagged}}
+                    </td>  
+                    <td style="padding-left: 70px;">
+                      {% if not user.admin %}
+                        {% if not user.is_flagged %}
+                        <a href="{{url_for('user_info', user_id=user.id)}}" class="btn btn-info">
+                          <i class="fa-sharp fa-solid fa-eye"></i>
+                          Info
+                      </a>
+                        <a href="{{ url_for('admin_flag_user', user_id=user.id) }}" class="btn btn-warning">
+                          <i class="fa-solid fa-flag"></i>
+                          Flag
+                      </a>
+                        <a href="{{url_for('delete_user', user_id=user.id)}}" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash    "></i> 
+                            Delete
+                      </a>
+                        
+                        {% else %}
+                        <a href="{{url_for('user_info', user_id=user.id)}}" class="btn btn-info">
+                          <i class="fa-sharp fa-solid fa-eye"></i>
+                          Info
+                      </a>
+                        <a href="{{ url_for('admin_flag_user', user_id=user.id) }}" class="btn btn-warning">
+                          <i class="fa-solid fa-flag"></i>
+                          Unflag
+                      </a>
+                        <a href="{{url_for('delete_user', user_id=user.id)}}" class="btn btn-sm btn-danger">
+                            <i class="fas fa-trash    "></i> 
+                            Delete
+                      </a>
+                          
+                        {% endif %}
+                      
+                      {% endif %}
+                        
+                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block style %}
+
+<style>
+  .chart-container {
+    display: flex;
+    height: 350px;
+    justify-content: space-between;
+    margin-top: 40px;
+   
+  }
+  .header{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    padding: 10px;
+    border-bottom:  3px solid #b54242;
+
+  }
+
+  .campaign_header {
+    display: flex;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 1rem; 
+    margin-top: 40px;
+    border-bottom:  3px solid #b54242;
+}
+
+.display-1{
+    font-size: 45px;
+}
+
+.campaign-table {
+    margin-top: 1rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 24px;
+    border-bottom:  3px solid #b54242;
+    
+}
+ 
+.badge {
+    padding: 1rem;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+    font-size: 28px;
+}
+
+</style>
+
+{% endblock %}
+
+{% block script %}
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+<script>
+    const data = {
+
+        labels: {{ labels|safe }},
+        datasets: [{
+          label: 'Total no. of users',
+          data: {{ data|safe }},
+          borderWidth: 1
+        }]
+    };
+
+    const config ={
+        type: 'bar',
+        data,
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+
+    };
+
+    const myChart = new Chart(document.getElementById('myChart'),
+    config
+    );
+
+    const datapie = {
+
+        labels: {{ labels1|safe }},
+        datasets: [{
+          label: 'Total no. of users',
+          data: {{ data1|safe }},
+          borderWidth: 1
+        }]
+    };
+
+    const config1 ={
+        type: 'pie',
+        data : datapie,
+        options : {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+
+    };
+
+    const pieChart = new Chart(document.getElementById('pieChart'),
+    config1
+    );
+ 
+  
+</script>
+
+{% endblock %}

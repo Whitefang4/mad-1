@@ -1,0 +1,148 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Admin Profile
+{% endblock %}
+
+{% block content %}
+<div class="heading">
+    <h1 class="display-1">
+        Hello
+        <span class="text-muted">{{user.username}}  </span>
+    </h1>
+    <div class="profile-pic">
+        <img src="https://api.dicebear.com/9.x/identicon/svg?seed={{user.username}}"  width=94 alt="">
+    </div>
+
+</div>
+<div class="profile-container">
+    <div class="logout-section">
+        <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">Logout</a>
+    </div>
+</div>
+
+<div class="user">
+    <h1>User</h1>
+    <div class="details">
+        <table>
+            <tbody>
+                <tr >
+                    <th>Username:</th>
+                    <td >{{ user.username}}</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td>{{ user.email}}</td>
+                </tr>
+        
+            </tbody>
+        </table>
+    </div>
+    <div class="button">
+        <a href="{{url_for('user_update')}}" class="btn btn-warning" >
+            <i class="fas fa-plus"></i>
+                Update Password   
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
+
+{% block style %}
+<style>
+    
+    .heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        padding: 20px; 
+        border-bottom: 3px solid #b54242; 
+    }
+
+    .profile-pic {
+        width: 100px;
+        height: 100px;
+        border: 3px solid black;
+        border-radius: 40%;
+        overflow: hidden;
+    }
+
+    .text-muted {
+        font-size: .7em; 
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+    .logout-section {
+        margin-top: 10px;
+        margin-left: 20px;  
+        text-align: right;
+
+    }
+    .form-container {
+        
+        padding: 3rem; 
+        
+      }
+      
+    .form-label {
+        
+        margin-bottom: 10px; 
+         
+      }
+    
+    
+    th, td {
+        padding: 10px;
+        text-align: center; 
+    }
+    .text-center {
+        text-align: center;
+        justify-content: center;
+    }
+
+    .user {
+        width: 400px;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size:30px;
+        padding: 10px; 
+        text-align: center;
+        margin-bottom: 10px;
+        box-shadow: 0px 5px 10px rgb(0, 0, 0) ;
+        border-radius: 10px;
+        background-color: #f06e3b;
+        margin-left: 430px;
+        color: #042a5e;
+        
+        
+    }
+    .details {
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-size: 24px; 
+        
+        
+    }
+    .button{
+        text-align: center;
+        margin-top:20px ;
+        color: azure;
+    }
+    .btn-warning{
+        background-color: #dbd034f9; 
+        border-color: #dbd034f9; 
+        padding: 0.75rem;
+        font-size: 20px;
+        border-radius: 1rem;
+      
+      }
+      .btn-warning:hover {
+        background-color: #dbd034dc; 
+        border-color: #dbd034dc; 
+      }
+    
+    
+    
+</style>
+{% endblock %}

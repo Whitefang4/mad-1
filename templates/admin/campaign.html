@@ -1,0 +1,179 @@
+{% extends 'layout.html' %}
+
+{% block tilte %}
+    Sponsors and Campaign
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="campaign_header">
+    <h1 class="display-1">
+        Sponsor`s And Ongoing Campaign</h1>
+    </div>
+    
+    <div class="chart-container">
+        <canvas id="campaignChart"></canvas>
+        <canvas id="requestChart"></canvas>
+      </div>
+    
+    
+    <table class="table table-striped campaign-table">
+        <thead>
+            <tr>
+                <th>Company Name</th>
+                <th >Company Type</th>
+                <th >Numbers of Campaign</th>
+                <th >Actions</th>
+    
+        </thead>
+        <tbody>
+            {% for sponsor in sponsors %}
+            <tr>
+                <td >{{ sponsor.company_name}}</td>
+                <td >{{ sponsor.industry }}</td>
+                <td >{% if sponsor.campaigns %}
+                    {{ sponsor.campaigns|length }}
+                    {% else %}
+                    0
+                    {% endif %}
+                </td>
+                <td >
+                    <a href="{{ url_for('admin_show_campaign', sponsor_id=sponsor.id) }}" class="btn btn-info">
+                        <i class="fa-sharp fa-solid fa-eye"></i>
+                        Show
+                    </a>
+    
+    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+    
+{% endblock %}
+
+
+{% block style %}    
+    <style>
+        .chart-container {
+            display: flex;
+            height: 350px;
+            justify-content: space-evenly;
+            margin-top: 40px;
+           
+          }
+        .campaign_header {
+            display: flex;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 1rem; 
+            border-bottom:  3px solid #b54242;
+        }
+
+        .display-1{
+            font-size: 45px;
+        }
+        
+        .campaign-table {
+            margin-top: 3rem;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 24px;
+            border-bottom:  3px solid #b54242;
+            
+        }
+         
+        .badge {
+            padding: 1rem;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; 
+            font-size: 28px;
+        }
+        .btn-info{
+            background-color: #3498db;
+            border-color: #3498db; 
+            padding: 0.75rem;
+            font-size: 20px;
+            border-radius: 1rem;
+          }
+          .btn-info:hover {
+            background-color: #2980b9; 
+            border-color: #2980b9; 
+          }
+          .btn-warning{
+            background-color: #dbd034; 
+            border-color: #dbd034; 
+            padding: 0.75rem;
+            font-size: 20px;
+            border-radius: 1rem;
+          
+          }
+          .btn-warning:hover {
+            background-color: #dbd034dc; 
+            border-color: #dbd034dc; 
+          }
+    </style>
+{% endblock %}
+
+{% block script %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+<script>
+    const data = {  labels: {{ labels2|safe }},
+            datasets: [{
+              label: 'Total no. of Campaigns',
+              data: {{ data2|safe }},
+              borderWidth: 1
+            }]
+        };
+    
+        const config ={
+            type: 'line',
+            data,  
+            options: {
+              scales: {
+                y: {
+                  beginAtZero: true
+                }
+              }
+            }
+    
+        };
+    
+    const campaignChart = new Chart(document.getElementById('campaignChart'), 
+    config);
+
+
+
+        const data_request = {  labels: {{ labels3|safe }},
+        datasets: [{
+          label: 'Total no. of Campaigns',
+          data: {{ data3|safe }},
+          borderWidth: 1
+        }]
+    };
+
+        const config2 ={
+            type: 'pie',
+            data : data_request,  
+            options: {
+            scales: {
+                y: {
+                beginAtZero: true
+                }
+            }
+            }
+
+        };
+        
+       
+    const requestChart = new Chart(document.getElementById('requestChart'), 
+    config2);
+
+
+
+
+</script>
+{% endblock %}
