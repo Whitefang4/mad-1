@@ -18,5 +18,6 @@ SQLite for data storage
 steps to use this.
 1) copy this repo to your local machine
 2) create the venv and install all the libraries from requirements.txt
-3) run the file. good to go 
+3) create .env file for config.py
+4) run the file. good to go 
 
